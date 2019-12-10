@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <title>QlibData</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/steps.css')}}">
+
+    <script src="{{url_for('static', filename='js/steps.js')}}"></script>
+
+    <script type="text/javascript">
+        function showtime(){
+
+    var today,hour,second,minute,year,month,date;
+
+    var strDate ;
+
+    today=new Date();
+
+    var n_day = today.getDay();
+
+    switch (n_day){
+
+        case 0:{
+
+          strDate = "星期日"
+
+        }break;
+
+        case 1:{
+
+          strDate = "星期一"
+
+        }break;
+
+        case 2:{
+
+          strDate ="星期二"
+
+        }break;
+
+        case 3:{
+
+          strDate = "星期三"
+
+        }break;
+
+        case 4:{
+
+          strDate = "星期四"
+
+        }break;
+
+        case 5:{
+
+          strDate = "星期五"
+
+        }break;
+
+        case 6:{
+
+          strDate = "星期六"
+
+        }break;
+
+        case 7:{
+
+          strDate = "星期日"
+
+        }break;
+
+    }
+
+    year = today.getFullYear();
+
+    month = today.getMonth()+1;
+
+    date = today.getDate();
+
+    hour = today.getHours();
+
+    minute =today.getMinutes();
+
+    second = today.getSeconds();
+
+
+
+    if (month >= 1 && month <= 9) {
+
+        month = "0" + month;
+
+    }
+
+    if (date >= 0 && date <= 9) {
+
+        date = "0" + date;
+
+    }
+
+    if (hour >= 0 && hour <= 9) {
+
+        hour = "0" + hour;
+
+    }
+
+    if (minute >= 0 && minute <= 9) {
+
+        minute = "0" + minute;
+
+    }
+
+    if (second >= 0 && second <= 9) {
+
+        second = "0" + second;
+
+    }
+
+    document.getElementById('current-time').innerHTML =year + "年" + month + "月" + date + "日" +"  "+ strDate +"   " + hour + ":" + minute + ":" + second; //显示时间
+
+    setTimeout("showtime();", 1000); //设定函数自动执行时间为 1000 ms(1 s)
+    }
+    window.onload=function(){showtime();}
+    </script>
+
+</head>
+<body>
+
+<div class="left">
+    <div class="item">
+        <div class="title t1">
+            QlibDataStatus
+            <span id="current-time" style="font-size:large; color:gray"></span>
+        </div>
+
+        <div class="content ">
+            <!--<div class="sub">-->
+                <!--<table border="4" class="tt">-->
+                    <!--<tr>-->
+                        <!--<th>服务器</th>-->
+                        <!--<th>预测者日频qlib数据</th>-->
+                        <!--<th>预测者日频因子数据</th>-->
+                        <!--<th>预测者日频cache更新</th>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>10.150.144.153</td>-->
+                        <!--<td>数据更新至: {{data['daily_date_153']}}</td>-->
+                        <!--<td>数据更新至: {{data['factor_date_153']}}</td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>10.150.144.154</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td>数据更新至: {{data['cache_date_154']}}</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>13.76.41.150</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td>数据更新至: {{data['cache_date_150']}}</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+
+
+             <!--steps -->
+            <div class="layui-container" style="margin:100px">
+                <div class="paragraph padding-left-20">
+                    <div class="paragraph padding-left-20">
+                        <!--<p style="font-size:x-large">Step Bar in testing...............</p>-->
+                        <div id="steps14"></div>
+                        <script>
+                    var steps14 = steps({
+                        el: "#steps14",
+                        data: [
+                            { title: "QlibData <br> 更新日期: {{data['daily_date_153']}} <br> 服务器:10.150.144.153", description: "", status: {{data['step_data_153']}} },
+                            { title: "QlibFactorData <br> 更新日期: {{data['factor_date_153']}} <br> 服务器:10.150.144.153", description: "", status:{{data['step_factor_153']}},side: "start-single" },
+                            { title: "153 QlibData 上传至154 <br> 上传日期: {{data['upload_date_154']}}", description: "", status: {{data['step_upload_status_154']}} },
+                            { title: "153 QlibData 上传至Azure <br> 上传日期: {{data['upload_date_150']}}", description: "", status: {{data['step_upload_status_150']}} ,side: "start-single"},
+                            { title: "154 UpdateCache<br> 更新日期: {{data['cache_date_154']}} <br> 服务器:10.150.144.154", description: "", status: {{data['step_cache_status_154']}} },
+                            { title: "Azure UpdateCache<br> 更新日期: {{data['cache_date_150']}} <br> 服务器:13.76.41.150", description: "", status: {{data['step_cache_status_150']}} ,side: "start-single"},
+                        ],
+                        center: true,
+                        active: 1,
+                        iconType: "bullets",
+                        sides: "two-sides"
+                    });
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subb" style="border-bottom: none"> 注释
+                <p><b>服务器</b>: 服务器地址.</p>
+                <p><b>上传日期</b>: qlib数据上传日期.</p>
+                <p><b>更新日期</b>: 当前qlib数据更新日期.</p>
+                <p><b>QlibData</b>: 153服务器qlib量价数据（bin数据）.</p>
+                <p><b>QlibFactorData</b>: 153服务器基于qlib量价数据算出的因子数据.</p>
+                <p><b>154 UpdateCache</b>: 最新qlib数据上传至154服务器后，对cache进行更新.</p>
+                <p><b>Azure UpdateCache</b>: 最新qlib数据上传至150服务器后，对cache进行更新.</p>
+                <p style="color:red">(为了保证数据状态时效性，尽量刷新下页面)</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
